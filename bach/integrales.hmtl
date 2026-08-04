@@ -1,0 +1,23 @@
+---
+layout: default
+title: Cálculo Integral - 2º Bachillerato
+---
+
+<section class="section-box">
+    <div class="section-header">
+        <h1 class="section-title">Integrales Definidas y Regla de Barrow</h1>
+    </div>
+
+    <p>La integral definida representa el área bajo la curva de una función $f(x)$ entre dos puntos $a$ y $b$.</p>
+
+    <div class="formula-preview" style="margin: 1.5rem 0; padding: 1rem;">
+        $$\int_a^b f(x) \, dx = F(b) - F(a)$$
+    </div>
+
+    <h3 style="margin-top: 1.5rem;">Ejemplo Resuelto</h3>
+    <p>Calcula la siguiente integral definida:</p>
+
+    <div class="formula-preview">
+        $$\int_{1}^{3} 2x \, dx = \left[ x^2 \right]_{1}^{3} = 3^2 - 1^2 = 8$$
+    </div>
+</section>
