@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} | MathAula</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ '/css/styles.css' | relative_url }}">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" 
+        onload="renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false}
+            ],
+            throwOnError: false
+        });">
+    </script>
+</head>
+<body>
+
+    <header class="header-education">
+        <div class="top-bar">
+            <div class="top-bar-container">
+                <div class="academic-info">
+                    <span class="status-dot"></span>
+                    <span>Departamento de Matemáticas — Curso Académico 2026/2027</span>
+                </div>
+                <nav class="top-links">
+                    <a href="{{ '/extra/formulario.html' | relative_url }}">🎓 Guía PAU</a>
+                    <a href="https://www.geogebra.org/calculator" target="_blank" rel="noopener">📐 GeoGebra Web</a>
+                </nav>
+            </div>
+        </div>
+
+        <div class="main-header">
+            <div class="header-container">
+                <a href="{{ '/' | relative_url }}" class="logo">
+                    <div class="logo-icon">$\sum_{i=1}^n$</div>
+                    <div class="logo-text">
+                        <span class="brand-name">MathAula <span class="brand-tag">ESO & Bach</span></span>
+                        <span class="brand-sub">Repositorio Oficial de Apuntes</span>
+                    </div>
+                </a>
+
+                <div class="header-search">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" placeholder="Buscar tema..." id="topicSearch">
+                    <kbd class="shortcut-hint">Ctrl + K</kbd>
+                </div>
+
+                <div class="header-actions">
+                    <a href="{{ '/extra/formulario.html' | relative_url }}" class="btn-header btn-outline">📄 Formulario PDF</a>
+                    <a href="{{ '/extra/examenes-resueltos.html' | relative_url }}" class="btn-header btn-fill">📝 Exámenes</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <span>📚</span> Índice de Unidades
+            </div>
+
+            <div class="menu-group">
+                <details>
+                    <summary><span class="summary-title"><span>📐</span> 1º y 2º de ESO</span></summary>
+                    <ul class="topic-links">
+                        <li><a href="{{ '/eso/enteros.html' | relative_url }}">Números enteros <span class="tag-micro tag-alg">Álgebra</span></a></li>
+                    </ul>
+                </details>
+            </div>
+
+            <div class="menu-group">
+                <details open>
+                    <summary><span class="summary-title"><span>🎓</span> 2º Bachillerato / PAU</span></summary>
+                    <ul class="topic-links">
+                        <li><a href="{{ '/bach/integrales.html' | relative_url }}">Cálculo Integral <span class="tag-micro tag-ana">Análisis</span></a></li>
+                    </ul>
+                </details>
+            </div>
+        </aside>
+
+        <main class="main-panel">
+            {{ content }}
+        </main>
+    </div>
+
+    <footer style="text-align: center; padding: 2.5rem 1rem; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border); margin-top: 3rem;">
+        <p>© Aula de Matemáticas | Repositorio educativo alojado en GitHub Pages</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('topicSearch');
+            document.addEventListener('keydown', (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+                    e.preventDefault();
+                    if (searchInput) searchInput.focus();
+                }
+            });
+
+            if (!searchInput) return;
+
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase().trim();
+                const menuGroups = document.querySelectorAll('.sidebar .menu-group details');
+                
+                menuGroups.forEach(details => {
+                    const links = details.querySelectorAll('.topic-links li');
+                    let hasMatch = false;
+
+                    links.forEach(li => {
+                        const text = li.textContent.toLowerCase();
+                        if (text.includes(query)) {
+                            li.style.display = '';
+                            hasMatch = true;
+                        } else {
+                            li.style.display = 'none';
+                        }
+                    });
+
+                    if (query !== '') {
+                        if (hasMatch) {
+                            details.open = true;
+                            details.style.display = '';
+                        } else {
+                            details.style.display = 'none';
+                        }
+                    } else {
+                        details.style.display = '';
+                        links.forEach(li => li.style.display = '');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
